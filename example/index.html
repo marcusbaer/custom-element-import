@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Element Import</title>
+    <script>window.addEventListener("DOMContentLoaded",function(){function e(e){e&&(customElements.get(e.localName)?console.log("already loaded",e.localName):(console.log("load",e.localName),import(`./components/${e.localName}.js`)))}function o(o){const t=o.getAttribute("ce-import")||"auto";if("true"===t);else if("auto"===t){const t=new IntersectionObserver(n=>{n.some(e=>e.isIntersecting)&&t&&(t.unobserve(o),e(o))},{root:null,rootMargin:"100px",threshold:[0]});t.observe(o)}}!function(){const e=document.querySelectorAll(":not(:defined)");Array.from(e).forEach(e=>{o(e)})}(),new MutationObserver((t,n)=>{t.filter(t=>{Array.from(t.addedNodes).forEach(t=>{if(t.localName&&t.localName.indexOf("-")>=0){const n=t.getAttribute("ce-import")||"auto";"true"===n?e(t):"auto"===n&&o(t)}})})}).observe(document.body,{attributes:!1,childList:!0,subtree:!0})});</script>
+    <!-- <script src="components/happy-hippo.js"></script> -->
+    <!-- <script src="./ce-import.min.js"></script> -->
+</head>
+<body>
+    <h1>Custom Element Import</h1>
+    <happy-hippo></happy-hippo>
+    <p>Hello, let's scroll!</p>
+    <button>put <code>dirty-dog</code> into DOM</button>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <curious-chamelion>
+        <template shadowroot="open" id="tpl-curious-chamelion">
+            <h2>Chamelion</h2>
+            <slot></slot>
+            <p>We have seen a chamelion.</p>
+            <style>
+                :host { font-style: italic; }
+                h2 { color: red; }
+            </style>
+        </template>
+    </curious-chamelion>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <angry-axolotl ce-import="false">
+        <template shadowroot="open" id="tpl-angry-axolotl">
+            <h2>Axolotl</h2>
+            <slot></slot>
+            <p>We have seen an axolotl.</p>
+            <style>
+                :host { font-style: italic; }
+                h2 { color: green; }
+            </style>
+        </template>
+    </angry-axolotl>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <happy-hippo name="Joan"></happy-hippo>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <brave-bird></brave-bird>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
+    </p>
+    <script>
+        const button = document.querySelector("button");
+        button.addEventListener("click", () => {
+            console.log("add new custom element using LightDOM at the end of body");
+            const el = document.createElement("dirty-dog");
+            // el.setAttribute("ce-import", "true");
+            document.body.appendChild(el);
+        }, {once: true});
+    </script>
+</body>
+</html>

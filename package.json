@@ -1,0 +1,22 @@
+{
+  "name": "custom-element-import",
+  "version": "0.0.1",
+  "description": "Imports (native) web components, based on custom elements only, when scrolled into view. This way, only scripts are loaded that are really needed, which saves data to be transferred and improves performance.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcusbaer/custom-element-import.git"
+  },
+  "author": "Marcus Baer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcusbaer/custom-element-import/issues"
+  },
+  "homepage": "https://github.com/marcusbaer/custom-element-import#readme"
+}
