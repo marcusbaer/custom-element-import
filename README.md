@@ -12,6 +12,10 @@ Imports (native) web components, based on custom elements only, when scrolled in
 
 Custom elements can be set up in your original source code or be added dynamically. Loading of a custom element, placed inside of another web component will only be working if it is using light DOM, elements inside of shadow DOM won't.
 
+```
+import customElementImport from 'custom-element-import';
+```
+
 ## Loading
 
 Custom elements can have a specific attribute `ce-import` to define its loading behaviour, by setting one of these values:

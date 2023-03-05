@@ -18,13 +18,10 @@ function observeElement (component) {
   } else if (importType === "auto") {
     const observer = new IntersectionObserver(
       (entries) => {
-        // console.log("entries: ", entries);
         const anyIsIntersecting = entries.some(
           (entry) => entry.isIntersecting
         );
         if (anyIsIntersecting && observer) {
-          // console.log(component.localName, customElements.get(component.localName));
-          /*customElements.whenDefined(component.localName).then(() => { observer.unobserve(component); });*/
           observer.unobserve(component);
           importCustomElement(component);
         }
@@ -38,7 +35,6 @@ function observeElement (component) {
 export function parseDOM () {
   // render custom elements, that are already in DOM
   const components = document.querySelectorAll(":not(:defined)");
-  console.log(components);
   Array.from(components).forEach((component) => { observeElement(component); });
 }
 
@@ -49,7 +45,6 @@ export function observeDOM () {
 
   // Callback function to execute when mutations are observed
   const callback = (mutationList, observer) => {
-    // console.log(mutationList);
     mutationList.filter((mutation) => {
       Array.from(mutation.addedNodes).forEach((component) => {
         if (component.localName.indexOf('-')>=0) {
