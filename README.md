@@ -12,7 +12,7 @@ Place your (first) web component in a public directory `components` or pick a di
 2. Create inside of that file the class for your web component, e.g. `BlendyBird`
 3. Add to that file as well the `customElements.define` instruction to register your class as custom element with the same name as used for the file name, e.g. `blendy-bird`
 
-In a very basic version, your `blendy-bird.js` should look like this:
+In a very basic version, your `blendy-bird.js` could look like this:
 
 ```js
 class BlendyBird extends HTMLElement {
