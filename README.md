@@ -34,6 +34,12 @@ Now you are ready to setup the rendering.
 
 ## Usage with a Bundler
 
+Install as dependency fist:
+
+```
+npm install --save custom-element-import
+```
+
 Import `custom-element-import` and call it to start the rendering with web components in a default directory `./components` relative to the calling JS file:
 
 ```
