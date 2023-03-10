@@ -1,18 +1,18 @@
 // ce-import="false | true | auto"
 
-function importCustomElement (component) {
+function importCustomElement (component, { dir }) {
   if (!component) {
     return
   }
   if (!customElements.get(component.localName)) {
     console.log("load", component.localName);
-    import(`./components/${component.localName}.js`);
+    import(/*webpackIgnore: true*/ `${dir}/${component.localName}.js`);
   } else {
     console.log("already loaded", component.localName);
   }
 }
 
-function observeElement (component) {
+function observeElement (component, { dir }) {
   const importType = component.getAttribute("ce-import") || "auto";
   if (importType === "true") {
   } else if (importType === "auto") {
@@ -23,7 +23,7 @@ function observeElement (component) {
         );
         if (anyIsIntersecting && observer) {
           observer.unobserve(component);
-          importCustomElement(component);
+          importCustomElement(component, { dir });
         }
       },
       { root: null, rootMargin: "100px", threshold: [0] }
@@ -32,13 +32,13 @@ function observeElement (component) {
   }
 }
 
-export function parseDOM () {
+export function parseDOM ({ dir } = { dir: "./components" }) {
   // render custom elements, that are already in DOM
   const components = document.querySelectorAll(":not(:defined)");
-  Array.from(components).forEach((component) => { observeElement(component); });
+  Array.from(components).forEach((component) => { observeElement(component, { dir }); });
 }
 
-export function observeDOM () {
+export function observeDOM ({ dir } = { dir: "./components" }) {
   // observe dynamically added webcomponents
   // Options for the observer (which mutations to observe)
   const config = { attributes: false, childList: true, subtree: true };
@@ -47,12 +47,12 @@ export function observeDOM () {
   const callback = (mutationList, observer) => {
     mutationList.filter((mutation) => {
       Array.from(mutation.addedNodes).forEach((component) => {
-        if (component.localName.indexOf('-')>=0) {
+        if (component && component.localName && component.localName.indexOf('-')>=0) {
           const importType = component.getAttribute("ce-import") || "auto";
           if (importType === "true") {
-            importCustomElement(component);
+            importCustomElement(component, { dir });
           } else if (importType === "auto") {
-            observeElement(component);
+            observeElement(component, { dir });
           }
         }
       });

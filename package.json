@@ -1,6 +1,6 @@
 {
   "name": "custom-element-import",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Imports (native) web components, when scrolled into view. This way, only scripts are loaded that are really needed, which saves data to be transferred and improves performance.",
   "main": "src/main.js",
   "type": "module",
