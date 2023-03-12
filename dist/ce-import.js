@@ -19,6 +19,7 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
   function observeElement(component, { dir }) {
     const importType = component.getAttribute("ce-import") || "auto";
     if (importType === "true") {
+      importCustomElement(component, { dir });
     } else if (importType === "auto") {
       const observer = new IntersectionObserver(
         (entries) => {
