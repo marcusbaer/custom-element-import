@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Element Import</title>
-    <script>window.addEventListener("DOMContentLoaded",function(){function e(e,{dir:o}){e&&(customElements.get(e.localName)?console.log("already loaded",e.localName):(console.log("load",e.localName),import(`${o}/${e.localName}.js`)))}function o(o,{dir:t}){const r=o.getAttribute("ce-import")||"auto";if("true"===r)e(o,{dir:t});else if("auto"===r){const r=new IntersectionObserver(n=>{n.some(e=>e.isIntersecting)&&r&&(r.unobserve(o),e(o,{dir:t}))},{root:null,rootMargin:"100px",threshold:[0]});r.observe(o)}}!function({dir:e}={dir:"./components"}){const t=document.querySelectorAll(":not(:defined)");Array.from(t).forEach(t=>{o(t,{dir:e})})}(),function({dir:t}={dir:"./components"}){new MutationObserver((r,n)=>{r.filter(r=>{Array.from(r.addedNodes).forEach(r=>{if(r&&r.localName&&r.localName.indexOf("-")>=0){const n=r.getAttribute("ce-import")||"auto";"true"===n?e(r,{dir:t}):"auto"===n&&o(r,{dir:t})}})})}).observe(document.body,{attributes:!1,childList:!0,subtree:!0})}()});</script>
+    <!-- <script src="https://unpkg.com/custom-element-import@latest/dist/ce-import.js" crossorigin></script> -->
+    <!-- <script src="https://unpkg.com/custom-element-import@latest/dist/ce-import.min.js" crossorigin></script> -->
+    <script>window.addEventListener("DOMContentLoaded",function(){var e;function t(e,t){if(!e)return;const o=t&&t.dir?t.dir:location.href.replace(/(.*)\/(.*)$/,"$1")+"/components";customElements.get(e.localName)||import(`${o}/${e.localName}.js`)}function o(e,o){const r=e.getAttribute("ce-import")||"auto";if("true"===r)t(e,o);else if("auto"===r){const r=new IntersectionObserver(n=>{n.some(e=>e.isIntersecting)&&r&&(r.unobserve(e),t(e,o))},{root:null,rootMargin:"100px",threshold:[0]});r.observe(e)}}!function(e){const t=document.querySelectorAll(":not(:defined)");Array.from(t).forEach(t=>{o(t,e)})}(),new MutationObserver(r=>{r.filter(r=>{Array.from(r.addedNodes).forEach(r=>{if(r&&r.localName&&r.localName.indexOf("-")>=0){const n=r.getAttribute("ce-import")||"auto";"true"===n?t(r,e):"auto"===n&&o(r,e)}})})}).observe(document.body,{attributes:!1,childList:!0,subtree:!0})});</script>
     <!-- <script src="components/happy-hippo.js"></script> -->
-    <!-- <script src="./ce-import.min.js"></script> -->
 </head>
 <body>
     <h1>Custom Element Import</h1>

@@ -6,7 +6,7 @@ Custom elements can be set up in your original source code or be added dynamical
 
 ## Setup your Web Components
 
-Place your (first) web component in a public directory `components` or pick a different name if you want:
+Place your (first) web component in a public directory `components` relative to the current url or pick a different name if you want:
 
 1. Create a JS file, having the custom element tag as its name, e.g. `blendy-bird.js`
 2. Create inside of that file the class for your web component, e.g. `BlendyBird`
@@ -40,9 +40,9 @@ Install as dependency fist:
 npm install --save custom-element-import
 ```
 
-Import `custom-element-import` and call it to start the rendering with web components in a default directory `./components` relative to the calling JS file:
+Import `custom-element-import` and call it to start the rendering with web components in a default directory `./components` relative to the current url:
 
-```
+```js
 import customElementImport from 'custom-element-import';
 
 customElementImport();
@@ -50,10 +50,10 @@ customElementImport();
 
 To specify another directory where your web components have been placed, provide a config with a param `dir`:
 
-```
+```js
 import { customElementImport } from 'custom-element-import';
 
-customElementImport({ dir: "../components" });
+customElementImport({ dir: "../components", log: true });
 ```
 
 It's also possible to render present DOM only as it is on runtime by calling `parseDOM`.
@@ -62,17 +62,34 @@ Calling `observeDOM` starts a watcher to observe DOM changes to render web compo
 
 As with `customElementImport` use an option configuration to specify a non default folder for your web components.
 
-```
+```js
 import { parseDOM, observeDOM } from 'custom-element-import';
 
 document.addEventListener('DOMContentLoaded', () => {
     // renders custom elements in DOM at runtime
-    parseDOM({ dir: "../components" });
+    parseDOM({ dir: "../components", log: true });
 
     // watches for DOM changes
-    observeDOM({ dir: "../components" });
+    observeDOM({ dir: "../components", log: true });
 });
 ```
+
+Given param `log` is set, it will log to console which component will be loaded as well as the expected location.
+
+## Using from CDN
+
+`custom-element-import` can be added from CDN. The minified version will not include logs.
+
+```html
+<script src="https://unpkg.com/custom-element-import@latest/dist/ce-import.min.js" crossorigin></script>
+```
+
+Use the non minified version to see logs.
+
+```html
+<script src="https://unpkg.com/custom-element-import@latest/dist/ce-import.js" crossorigin></script>
+```
+
 
 ## Usage without Bundler
 

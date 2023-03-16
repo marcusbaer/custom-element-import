@@ -1,10 +1,10 @@
 import { parseDOM, observeDOM } from "./ce-import.js";
 export { parseDOM, observeDOM } from "./ce-import.js";
 
-export const customElementImport = function ({ dir } = { dir: "./components" }) {
+export const customElementImport = function (options) {
   window.addEventListener("DOMContentLoaded", function () {
-    parseDOM({ dir });
-    observeDOM({ dir });
+    parseDOM(options);
+    observeDOM(options);
   });
 };
 

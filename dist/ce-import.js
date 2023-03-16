@@ -4,22 +4,28 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
   parseDOM();
   observeDOM();
 
-  function importCustomElement(component, { dir }) {
+  function getDirByUrl () {
+    let locator = location.href.replace(/(.*)\/(.*)$/, "$1") + '/';
+    return locator + 'components';
+  }
+
+  function importCustomElement (component, options) {
     if (!component) {
-      return;
+      return
     }
+    const dir = (options && options.dir) ? options.dir : getDirByUrl();
     if (!customElements.get(component.localName)) {
-      console.log("load", component.localName);
+      console.log(`load ${component.localName} from ${dir}/${component.localName}.js`);
       import(`${dir}/${component.localName}.js`);
     } else {
       console.log("already loaded", component.localName);
     }
   }
 
-  function observeElement(component, { dir }) {
+  function observeElement(component, options) {
     const importType = component.getAttribute("ce-import") || "auto";
     if (importType === "true") {
-      importCustomElement(component, { dir });
+      importCustomElement(component, options);
     } else if (importType === "auto") {
       const observer = new IntersectionObserver(
         (entries) => {
@@ -28,7 +34,7 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
           );
           if (anyIsIntersecting && observer) {
             observer.unobserve(component);
-            importCustomElement(component, { dir });
+            importCustomElement(component, options);
           }
         },
         { root: null, rootMargin: "100px", threshold: [0] }
@@ -37,21 +43,21 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
     }
   }
 
-  function parseDOM({ dir } = { dir: "./components" }) {
+  function parseDOM(options) {
     // render custom elements, that are already in DOM
     const components = document.querySelectorAll(":not(:defined)");
     Array.from(components).forEach((component) => {
-      observeElement(component, { dir });
+      observeElement(component, options);
     });
   }
 
-  function observeDOM({ dir } = { dir: "./components" }) {
+  function observeDOM(options) {
     // observe dynamically added webcomponents
     // Options for the observer (which mutations to observe)
     const config = { attributes: false, childList: true, subtree: true };
 
     // Callback function to execute when mutations are observed
-    const callback = (mutationList, observer) => {
+    const callback = (mutationList) => {
       mutationList.filter((mutation) => {
         Array.from(mutation.addedNodes).forEach((component) => {
           if (
@@ -61,9 +67,9 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
           ) {
             const importType = component.getAttribute("ce-import") || "auto";
             if (importType === "true") {
-              importCustomElement(component, { dir });
+              importCustomElement(component, options);
             } else if (importType === "auto") {
-              observeElement(component, { dir });
+              observeElement(component, options);
             }
           }
         });
