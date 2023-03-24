@@ -7,7 +7,7 @@
     <title>Custom Element Import</title>
     <!-- <script src="https://unpkg.com/custom-element-import@latest/dist/ce-import.js" crossorigin></script> -->
     <!-- <script src="https://unpkg.com/custom-element-import@latest/dist/ce-import.min.js" crossorigin></script> -->
-    <script>window.addEventListener("DOMContentLoaded",function(){var e;function t(e,t){if(!e)return;const o=t&&t.dir?t.dir:location.href.replace(/(.*)\/(.*)$/,"$1")+"/components";customElements.get(e.localName)||import(`${o}/${e.localName}.js`)}function o(e,o){const r=e.getAttribute("ce-import")||"auto";if("true"===r)t(e,o);else if("auto"===r){const r=new IntersectionObserver(n=>{n.some(e=>e.isIntersecting)&&r&&(r.unobserve(e),t(e,o))},{root:null,rootMargin:"100px",threshold:[0]});r.observe(e)}}!function(e){const t=document.querySelectorAll(":not(:defined)");Array.from(t).forEach(t=>{o(t,e)})}(),new MutationObserver(r=>{r.filter(r=>{Array.from(r.addedNodes).forEach(r=>{if(r&&r.localName&&r.localName.indexOf("-")>=0){const n=r.getAttribute("ce-import")||"auto";"true"===n?t(r,e):"auto"===n&&o(r,e)}})})}).observe(document.body,{attributes:!1,childList:!0,subtree:!0})});</script>
+    <script>window.addEventListener("DOMContentLoaded",function(){var e;function t(e,t){if(!e)return;const o=t&&t.dir?t.dir:location.href.replace(/(.*)\/(.*)$/,"$1")+"/components";customElements.get(e.localName)||import(`${o}/${e.localName}.js`)}function o(e,o){const r=e.getAttribute("ce-import")||"auto";if("true"===r)t(e,o);else if("auto"===r){const r=new IntersectionObserver(n=>{n.some(e=>e.isIntersecting)&&r&&(r.unobserve(e),t(e,o))},{root:null,rootMargin:"100px",threshold:[0]});r.observe(e)}}!function(e){const t=document.querySelectorAll(":not(:defined)");Array.from(t).forEach(t=>{o(t,e)})}(),new MutationObserver(r=>{r.filter(r=>{Array.from(r.addedNodes).forEach(r=>{!function e(r,n){if(r&&r.localName&&r.localName.indexOf("-")>=0){const e=r.getAttribute("ce-import")||"auto";"true"===e?t(r,n):"auto"===e&&o(r,n)}Array.from(r.childNodes).forEach(t=>{e(t,n)})}(r,e)})})}).observe(document.body,{attributes:!1,childList:!0,subtree:!0})});</script>
     <!-- <script src="components/happy-hippo.js"></script> -->
 </head>
 <body>
@@ -22,7 +22,7 @@
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
     </p>
     <curious-chamelion>
-        <template shadowroot="open" id="tpl-curious-chamelion">
+        <template shadowrootmode="open" id="tpl-curious-chamelion">
             <h2>Chamelion</h2>
             <slot></slot>
             <p>We have seen a chamelion.</p>
@@ -86,6 +86,13 @@
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
     </p>
+    <details>
+        <summary>Open to see some dirty dog!</summary>
+        <p>
+            <dirty-dog></dirty-dog>
+            This is a text in the details element.
+        </p>
+    </details>
     <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
@@ -111,6 +118,18 @@
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam maiores ab obcaecati ex ad sapiente totam facere. Ut dolore labore a laboriosam veritatis reiciendis fugiat velit, voluptas porro. Molestiae, aut?
     </p>
+    <script>
+        // https://developer.chrome.com/articles/declarative-shadow-dom/#polyfill
+        (function attachShadowRoots(root) {
+          root.querySelectorAll("template[shadowrootmode]").forEach(template => {
+            const mode = template.getAttribute("shadowrootmode");
+            const shadowRoot = template.parentNode.attachShadow({ mode });
+            shadowRoot.appendChild(template.content);
+            template.remove();
+            attachShadowRoots(shadowRoot);
+          });
+         })(document);
+    </script>
     <script>
         const button = document.querySelector("button");
         button.addEventListener("click", () => {

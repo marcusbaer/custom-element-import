@@ -4,18 +4,20 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
   parseDOM();
   observeDOM();
 
-  function getDirByUrl () {
-    let locator = location.href.replace(/(.*)\/(.*)$/, "$1") + '/';
-    return locator + 'components';
+  function getDirByUrl() {
+    let locator = location.href.replace(/(.*)\/(.*)$/, "$1") + "/";
+    return locator + "components";
   }
 
-  function importCustomElement (component, options) {
+  function importCustomElement(component, options) {
     if (!component) {
-      return
+      return;
     }
-    const dir = (options && options.dir) ? options.dir : getDirByUrl();
+    const dir = options && options.dir ? options.dir : getDirByUrl();
     if (!customElements.get(component.localName)) {
-      console.log(`load ${component.localName} from ${dir}/${component.localName}.js`);
+      console.log(
+        `load ${component.localName} from ${dir}/${component.localName}.js`
+      );
       import(`${dir}/${component.localName}.js`);
     } else {
       console.log("already loaded", component.localName);
@@ -43,6 +45,24 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
     }
   }
 
+  function registerElement(component, options) {
+    if (
+      component &&
+      component.localName &&
+      component.localName.indexOf("-") >= 0
+    ) {
+      const importType = component.getAttribute("ce-import") || "auto";
+      if (importType === "true") {
+        importCustomElement(component, options);
+      } else if (importType === "auto") {
+        observeElement(component, options);
+      }
+    }
+    Array.from(component.childNodes).forEach((component) => {
+      registerElement(component, options);
+    });
+  }
+
   function parseDOM(options) {
     // render custom elements, that are already in DOM
     const components = document.querySelectorAll(":not(:defined)");
@@ -60,18 +80,7 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
     const callback = (mutationList) => {
       mutationList.filter((mutation) => {
         Array.from(mutation.addedNodes).forEach((component) => {
-          if (
-            component &&
-            component.localName &&
-            component.localName.indexOf("-") >= 0
-          ) {
-            const importType = component.getAttribute("ce-import") || "auto";
-            if (importType === "true") {
-              importCustomElement(component, options);
-            } else if (importType === "auto") {
-              observeElement(component, options);
-            }
-          }
+          registerElement(component, options);
         });
       });
     };

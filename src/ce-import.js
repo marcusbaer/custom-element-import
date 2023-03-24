@@ -40,6 +40,20 @@ function observeElement (component, options) {
   }
 }
 
+function registerElement (component, options) {
+  if (component && component.localName && component.localName.indexOf('-')>=0) {
+    const importType = component.getAttribute("ce-import") || "auto";
+    if (importType === "true") {
+      importCustomElement(component, options);
+    } else if (importType === "auto") {
+      observeElement(component, options);
+    }
+  }
+  Array.from(component.childNodes).forEach((component) => {
+    registerElement(component, options);
+  });
+}
+
 export function parseDOM (options) {
   // render custom elements, that are already in DOM
   const components = document.querySelectorAll(":not(:defined)");
@@ -55,14 +69,7 @@ export function observeDOM (options) {
   const callback = (mutationList, observer) => {
     mutationList.filter((mutation) => {
       Array.from(mutation.addedNodes).forEach((component) => {
-        if (component && component.localName && component.localName.indexOf('-')>=0) {
-          const importType = component.getAttribute("ce-import") || "auto";
-          if (importType === "true") {
-            importCustomElement(component, options);
-          } else if (importType === "auto") {
-            observeElement(component, options);
-          }
-        }
+        registerElement(component, options);
       });
     });
   };

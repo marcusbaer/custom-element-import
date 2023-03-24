@@ -34,7 +34,7 @@ Now you are ready to setup the rendering.
 
 ## Usage with a Bundler
 
-Install as dependency fist:
+Install as dependency first:
 
 ```
 npm install --save custom-element-import
