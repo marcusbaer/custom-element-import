@@ -20,7 +20,8 @@ function importCustomElement (component, options) {
 }
 
 function observeElement (component, options) {
-  const importType = component.getAttribute("ce-import") || "auto";
+  const importIgnoreDirective = component.hasAttribute("@ignore");
+  const importType = importIgnoreDirective ? "false" : (component.getAttribute("ce-import") || "auto");
   if (importType === "true") {
     importCustomElement(component, options);
   } else if (importType === "auto") {
@@ -42,7 +43,8 @@ function observeElement (component, options) {
 
 function registerElement (component, options) {
   if (component && component.localName && component.localName.indexOf('-')>=0) {
-    const importType = component.getAttribute("ce-import") || "auto";
+    const importIgnoreDirective = component.hasAttribute("@ignore");
+    const importType = importIgnoreDirective ? "false" : (component.getAttribute("ce-import") || "auto");
     if (importType === "true") {
       importCustomElement(component, options);
     } else if (importType === "auto") {

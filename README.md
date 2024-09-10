@@ -113,6 +113,12 @@ Custom elements can have a specific attribute `ce-import` to define its loading 
 <blendy-bird ce-import="true"></blendy-bird>
 ```
 
+Alternatively, a `@ignore` directive could be used to ignore the loading.
+
+```
+<blendy-bird @ignore></blendy-bird>
+```
+
 ## Minification
 
 The minified dist version of `custom-element-import` uses this uglifier: https://skalman.github.io/UglifyJS-online/
