@@ -108,15 +108,20 @@ Custom elements can have a specific attribute `ce-import` to define its loading 
 - `auto` (default) to request web component, when it will be scrolled into view.
 - `true` to force the request immediately.
 - `false` to not request a JS resource, which might make sense for web components using declarative shadow DOM.
+- `interact` to load a JS resource on user interaction, e.g. on click.
 
 ```
 <blendy-bird ce-import="true"></blendy-bird>
 ```
 
-Alternatively, a `@ignore` directive could be used to ignore the loading.
+Alternatively, there are two short-hand directives to adjust the control of the imports.
+Either use `@ignore` to ignore the loading or `@interact` to request the web component only on user interaction, e.g. on click.
+
+`@ignore`  could be used to ignore the loading.
 
 ```
 <blendy-bird @ignore></blendy-bird>
+<fragmented-frog @interact></fragmented-frog>
 ```
 
 ## Minification

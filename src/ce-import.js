@@ -1,4 +1,4 @@
-// ce-import="false | true | auto"
+// ce-import="false | true | interact | auto"
 
 function getDirByUrl () {
   let locator = location.href.replace(/(.*)\/(.*)$/, "$1") + '/';
@@ -20,10 +20,16 @@ function importCustomElement (component, options) {
 }
 
 function observeElement (component, options) {
+  const importInteractionDirective = component.hasAttribute("@interact");
   const importIgnoreDirective = component.hasAttribute("@ignore");
-  const importType = importIgnoreDirective ? "false" : (component.getAttribute("ce-import") || "auto");
+  const importDefaultType = (importInteractionDirective) ? "interact" : "auto";
+  const importType = (importIgnoreDirective) ? "false" : (component.getAttribute("ce-import") || importDefaultType);
   if (importType === "true") {
     importCustomElement(component, options);
+  } else if (importType === "interact") {
+    component.addEventListener("click", () => {
+      importCustomElement(component, options);
+    });
   } else if (importType === "auto") {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -42,11 +48,17 @@ function observeElement (component, options) {
 }
 
 function registerElement (component, options) {
-  if (component && component.localName && component.localName.indexOf('-')>=0) {
+  if (component?.localName && component.localName.indexOf('-')>=0) {
+    const importInteractionDirective = component.hasAttribute("@interact");
     const importIgnoreDirective = component.hasAttribute("@ignore");
-    const importType = importIgnoreDirective ? "false" : (component.getAttribute("ce-import") || "auto");
+    const importDefaultType = (importInteractionDirective) ? "interact" : "auto";
+    const importType = (importIgnoreDirective) ? "false" : (component.getAttribute("ce-import") || importDefaultType);
     if (importType === "true") {
       importCustomElement(component, options);
+    } else if (importType === "interact") {
+      component.addEventListener("click", () => {
+        importCustomElement(component, options);
+      });
     } else if (importType === "auto") {
       observeElement(component, options);
     }

@@ -1,4 +1,4 @@
-// ce-import="false | true | auto"
+// ce-import="false | true | interact | auto"
 
 window.addEventListener("DOMContentLoaded", function customElementImport() {
   parseDOM();
@@ -15,19 +15,23 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
     }
     const dir = options && options.dir ? options.dir : getDirByUrl();
     if (!customElements.get(component.localName)) {
-      console.log(
-        `load ${component.localName} from ${dir}/${component.localName}.js`
-      );
       import(`${dir}/${component.localName}.js`);
-    } else {
-      console.log("already loaded", component.localName);
     }
   }
 
   function observeElement(component, options) {
-    const importType = component.getAttribute("ce-import") || "auto";
+    const importInteractionDirective = component.hasAttribute("@interact");
+    const importIgnoreDirective = component.hasAttribute("@ignore");
+    const importDefaultType = importInteractionDirective ? "interact" : "auto";
+    const importType = importIgnoreDirective
+      ? "false"
+      : component.getAttribute("ce-import") || importDefaultType;
     if (importType === "true") {
       importCustomElement(component, options);
+    } else if (importType === "interact") {
+      component.addEventListener("click", () => {
+        importCustomElement(component, options);
+      });
     } else if (importType === "auto") {
       const observer = new IntersectionObserver(
         (entries) => {
@@ -46,14 +50,21 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
   }
 
   function registerElement(component, options) {
-    if (
-      component &&
-      component.localName &&
-      component.localName.indexOf("-") >= 0
-    ) {
-      const importType = component.getAttribute("ce-import") || "auto";
+    if (component?.localName && component.localName.indexOf("-") >= 0) {
+      const importInteractionDirective = component.hasAttribute("@interact");
+      const importIgnoreDirective = component.hasAttribute("@ignore");
+      const importDefaultType = importInteractionDirective
+        ? "interact"
+        : "auto";
+      const importType = importIgnoreDirective
+        ? "false"
+        : component.getAttribute("ce-import") || importDefaultType;
       if (importType === "true") {
         importCustomElement(component, options);
+      } else if (importType === "interact") {
+        component.addEventListener("click", () => {
+          importCustomElement(component, options);
+        });
       } else if (importType === "auto") {
         observeElement(component, options);
       }

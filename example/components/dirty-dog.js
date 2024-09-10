@@ -5,7 +5,7 @@ class DirtyDog extends HTMLElement {
 
   constructor() {
     super();
-    this.innerHTML = `<h2>Dirty Dog</h2><eloquent-elephant></eloquent-elephant>`;
+    this.innerHTML = `<h2>Dirty Dog</h2><eloquent-elephant></eloquent-elephant><fragmented-frog @interact>Click to load the frog</fragmented-frog>`;
   }
 }
 
