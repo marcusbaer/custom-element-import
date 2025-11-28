@@ -6,13 +6,15 @@ Custom elements can be set up in your original source code or be added dynamical
 
 ## Setup your Web Components
 
-Place your (first) web component in a public directory `components` relative to the current url or pick a different name if you want:
+Place your (first) web component in a public directory `components` inside of a directory with the same name as of the web component relative to the current url or pick a different name if you want, so:
 
-1. Create a JS file, having the custom element tag as its name, e.g. `blendy-bird.js`
-2. Create inside of that file the class for your web component, e.g. `BlendyBird`
-3. Add to that file as well the `customElements.define` instruction to register your class as custom element with the same name as used for the file name, e.g. `blendy-bird`
+1. Create a directory `components`, to be available on top level
+2. Create a directory inside of this folder, named as your custom element, e.g. `blendy-bird`
+3. Create a JS file within this folder, having the custom element tag as its name, e.g. `blendy-bird.js`
+4. Create inside of that file the class for your web component, e.g. `BlendyBird`
+5. Add to that file as well the `customElements.define` instruction to register your class as custom element with the same name as used for the file name, e.g. `blendy-bird`
 
-In a very basic version, your `blendy-bird.js` could look like this:
+In a very basic version, your `blendy-bird/blendy-bird.js` could look like this:
 
 ```js
 class BlendyBird extends HTMLElement {

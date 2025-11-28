@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", function customElementImport() {
     }
     const dir = options && options.dir ? options.dir : getDirByUrl();
     if (!customElements.get(component.localName)) {
-      import(`${dir}/${component.localName}.js`);
+      import(`${dir}/${component.localName}/${component.localName}.js`);
     }
   }
 

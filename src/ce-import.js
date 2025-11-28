@@ -12,8 +12,8 @@ function importCustomElement (component, options) {
   const dir = (options && options.dir) ? options.dir : getDirByUrl();
   const log = (options && options.log) ? !!options.log : false;
   if (!customElements.get(component.localName)) {
-    if (log) console.log(`load ${component.localName} from ${dir}/${component.localName}.js`);
-    import(/*webpackIgnore: true*/ `${dir}/${component.localName}.js`);
+    if (log) console.log(`load ${component.localName} from ${dir}/${component.localName}/${component.localName}.js`);
+    import(/*webpackIgnore: true*/ `${dir}/${component.localName}/${component.localName}.js`);
   } else {
     if (log) console.log("already loaded", component.localName);
   }
