@@ -1,8 +1,8 @@
 // ce-import="false | true | interact | auto"
 
-function getDirByUrl () {
-  let locator = location.href.replace(/(.*)\/(.*)$/, "$1") + '/';
-  return locator + 'components';
+function getDirByUrl() {
+  const componentsDir = "components";
+  return componentsDir.startsWith('http') ? componentsDir : location.origin + componentsDir;
 }
 
 function importCustomElement (component, options) {
@@ -22,9 +22,10 @@ function importCustomElement (component, options) {
 function observeElement (component, options) {
   const importInteractionDirective = component.hasAttribute("@interact");
   const importIgnoreDirective = component.hasAttribute("@ignore");
+  const importImmediateDirective = component.hasAttribute("@immediate");
   const importDefaultType = (importInteractionDirective) ? "interact" : "auto";
   const importType = (importIgnoreDirective) ? "false" : (component.getAttribute("ce-import") || importDefaultType);
-  if (importType === "true") {
+  if (importImmediateDirective || importType === "true") {
     importCustomElement(component, options);
   } else if (importType === "interact") {
     component.addEventListener("click", () => {

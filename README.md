@@ -114,8 +114,20 @@ Custom elements can have a specific attribute `ce-import` to define its loading 
 <blendy-bird ce-import="true"></blendy-bird>
 ```
 
-Alternatively, there are two short-hand directives to adjust the control of the imports.
-Either use `@ignore` to ignore the loading or `@interact` to request the web component only on user interaction, e.g. on click.
+Alternatively, there are short-hand directives to adjust the control of the imports.
+Use
+
+- `@ignore` to ignore the loading
+- `@interact` to request the web component only on user interaction, e.g. on click
+- `@immediate` to force to load the web component immediately
+
+Examples:
+
+```
+<blendy-bird @ignore></blendy-bird>
+<fragmented-frog @interact></fragmented-frog>
+<dirty-dog @immediate></dirty-dog>
+```
 
 `@ignore`  could be used to ignore the loading.
 
